@@ -1,0 +1,33 @@
+.imageCard {
+  max-width: 30%;
+  min-height: 30vh;
+  margin: 0 10px 15px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  border: solid 2px black;
+  padding: 5px !important;
+}
+
+.imageCard h3 {
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.imageCard .card-Img {
+  width: 95%;
+  margin-bottom: 10px;
+}
+
+.imageButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-bottom: 10px;
+}
+
+.progressBarContainer {
+  padding: 0 10px 0 10px;
+}
