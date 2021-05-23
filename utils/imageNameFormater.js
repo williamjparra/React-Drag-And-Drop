@@ -8,7 +8,7 @@ const imageNameFormater = (ownerId, name) => {
 
     console.log(fileName)
     
-    return filename
+    return fileName
 }
 
 module.exports = imageNameFormater

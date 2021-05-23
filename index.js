@@ -1,19 +1,22 @@
 const express = require('express')
 const cors = require('cors')
-const fileUpload = require('fileupload')
+const fileUpload = require('express-fileupload')
 const fs = require('fs')
 const imageNameFormater = require('./utils/imageNameFormater')
 
-const app = express()
-const port = 3055
+const app = express(express)
+const port = 5055
 
+app.use(cors())
 app.use(fileUpload({
     uriDecodeFileNames: true
 }))
 app.use(express.urlencoded({extended: true}))
-app.use(cors())
+app.use(express.json())
+app.use(express.static('assets'))
 
-app.use('/', function(req, res) {
+
+app.get('/', function(req, res) {
     res.send("esta es la ruta raiz")
 })
 
@@ -25,11 +28,10 @@ app.post('/upload', function async (req, res) {
         if(!req.files) {
             res.send({message: 'no se envio ninguna imagenes'})
         }
-        
-        var image = req.files.files
+
+        var image = req.files.file
         const imageName = imageNameFormater(filename, image.name)
         const savePath = `.${relativePath}/${imageName}`
-
         image.mv(savePath)
 
         res.send({
@@ -44,17 +46,17 @@ app.post('/upload', function async (req, res) {
         })
 
     } catch (err) {
-        res.status(500).send(err)
+        console.log(err)
     }
 
 })
 
-app.listen(port,() => {
+app.listen(port, () => {
     console.log(`aplicacion corriendo en el puerto ${port}`)
 })
 
 const checkAndMakeDir = (directory) => {
-    const checkDir = fs.existsSyn(`assets/${directory}`)
+    const checkDir = fs.existsSync(`assets/${directory}`)
 
     if(checkDir === false) {
         fs.mkdir(
